@@ -57,7 +57,12 @@ router.post('/signup', (req, res, next) => {
                         res.statusCode = 200;
                         res.setHeader('Content-Type', 'application/json');
                         
-                    Patient.create({_id:req.user._id, name:req.user.username})
+                    Patient.create({_id:req.user._id, name:req.user.username,email: "",
+                    phoneNo: "",
+                    cnic: "",
+                    address: "",
+                    gender: "",
+                    dob: ""})
                         .then((user) => {
                             console.log('user has been Added in both user and patient table ', user);
                             res.json({ success: true, status: 'Registration Successful!', user:user });                    

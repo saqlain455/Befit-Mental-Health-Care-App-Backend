@@ -26,5 +26,16 @@ var appointmentSchema = new Schema({
     //     type: Boolean,
     //     default: false
     // }
+    reportData: {
+        type: Object,
+        default:{
+            "anger": 0,
+            "boredom": 0,
+            "fear": 0,
+            "hate": 0,
+            "insomnia": 0,
+            "sadness": 0,
+          }
+      },
 });
 module.exports = mongoose.model('Appointment', appointmentSchema);

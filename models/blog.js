@@ -4,20 +4,21 @@ var BlogSchema= new Schema({
     title:{
         type:String
     },
-    catogery:{
-        type:String
-    },
     poster:{
         type:mongoose.Schema.Types.ObjectId,
-        required:true
+        required:true,
+        ref: 'Doctor'
     },
-    dateOfcreation:{
-        type:Date
+    date:{
+        type:Date,
+        default:Date.now
     },
     content:{
         type:String
     },
-    comments: [{ body: String, date: {type:Date , default:Date.now }}]
+    comments: [{ body: String, date: {type:Date , default:Date.now }}],
+    img: { data: Buffer, contentType: String },
+
 });
 
 module.exports=new mongoose.model('Blog',BlogSchema)

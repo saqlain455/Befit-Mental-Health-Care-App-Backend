@@ -20,12 +20,15 @@ var OrderSchema = new Schema({
     },
     status:{
         type:String,
-        default:'pending'
+        default:'active'
     },
     verify:{
         type:Boolean,
         default: false
-    }
+    },
+    address: {
+        type: String,
+    },
 });
 
 module.exports = mongoose.model('Order', OrderSchema);
