@@ -13,6 +13,7 @@ var systemRouter = require('./routes/system');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 
+
 var path = require('path');
 
 
@@ -64,5 +65,25 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+// we change this
+
+// app.use("/mypeer",peerServer)
+// const server=http.createServer(app)
+
+// const socketio=require('socket.io');
+// const io= socketio(server).sockets
+// const http=require('http');
+// const {ExpressPeerServer}=require('peer'); // it  generate random id for each  peerjs  connector from client
+
+// const customGenerationFunction = () =>
+//   (Math.random().toString(36) + "0000000000000000000").substr(2, 16)
+
+// const peerServer = ExpressPeerServer(server, {
+//   debug: true,
+//   path: "/",
+//   generateClientId: customGenerationFunction,
+// });
 
 module.exports = app;
