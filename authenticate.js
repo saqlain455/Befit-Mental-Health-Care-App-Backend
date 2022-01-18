@@ -32,7 +32,7 @@ passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
         }
     });
 }));
-
+///
 exports.verifyUser = passport.authenticate('jwt', { session: false });
 
 
