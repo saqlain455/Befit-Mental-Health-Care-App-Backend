@@ -57,7 +57,7 @@ router.get('/ViewAppointment/:uid',function (req, res, next) {
         // console.log(doc.img.contentType)
         //   res.contentType(doc.img.contentType);
         //    res.send(doc.img.data);
-        res.send(doc);
+        res.json(doc);
     });
 });
 //post 

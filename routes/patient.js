@@ -9,6 +9,7 @@ var Blog = require("../models/blog");
 var Appointment = require("../models/appointment");
 var Report = require("../models/report");
 var path = require("path");
+var Rating = require("../models/rating");
 var fs = require("fs");
 const stripe=require('stripe')('sk_test_51K2v8mKvvnZ4BedM6Q8Zxp1jGrsQZxj8TM4JzYDbWcvi1laMMvTij3clQJofvVdZWY3DXzU39JS9nQ1bOCBh4aTb00MzdQ8Pgt')
 // import Stripe from "stripe";
@@ -123,6 +124,37 @@ router.post(
           console.log("appointment created ", data);
           res.statusCode = 200;
           res.setHeader("Content-Type", "application/json");
+          res.json(data);
+        },
+        (err) => next(err)
+      )
+      .catch((err) => next(err));
+  }
+);
+
+
+router.get(
+  "/getRating/:id",
+   authenticate.verifyUser,
+  function (req, res, next) {
+    Rating.find({ doctor: req.params.id }).populate('patient').exec(function (error, results) {
+      if (error) {
+        next(error);
+      }
+      res.send(results);
+    });
+  }
+);
+router.post(
+  "/createRating",
+  authenticate.verifyUser,
+  function (req, res, next) {
+    Rating.create(req.body)
+      .then(
+        (data) => {
+          console.log("Rating created ", data);
+          res.statusCode = 200;
+      //    res.setHeader("Content-Type", "application/json");
           res.json(data);
         },
         (err) => next(err)
@@ -274,6 +306,7 @@ function a() {}
 
 var voiceid = "";
 router.post("/sendVoice", upload.single("filesent"), function (req, res, next) {
+  console.log(req)
   console.log(req.file.path);
   const assembly = axios.create({
     baseURL: "https://api.assemblyai.com/v2",
@@ -415,10 +448,11 @@ router.put("/updateProfile/:id", function (req, res, next) {
     }
   );
 });
-router.get("/processPayment/", function (req, res, next) {
+router.post("/processPayment/", function (req, res, next) {
+  console.log(req.body)
   stripe.charges
     .create({
-      amount: 100,
+      amount: req.body.amount,
       currency: "usd",
       source: "tok_mastercard",
     })

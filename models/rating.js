@@ -2,8 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var RatingSchema = new Schema({
     starvalue: {
-        type: Number,
-        default: 0
+        type: String,
     },
     review:{
         type:String,
